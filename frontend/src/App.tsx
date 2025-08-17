@@ -2,6 +2,8 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import BookCards from "@/components/book_cards/BookCards";
+import {BookGenre} from "@/types/bookGenre.ts";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,9 +27,13 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BookCards title={"The Great Gatsby"}
+                 author={"F. Scott Fitzgerald"}
+                 genre={BookGenre.FANTASIA}
+                 synopsis={"A story about the Jazz Age in the United States, " +
+                     "focusing on the mysterious Jay Gatsby and his obsession with Daisy Buchanan."}
+                 isFavorite={true}>
+      </BookCards>
     </>
   )
 }

@@ -1,0 +1,43 @@
+services:
+  # Servicio para el frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  # Servicio para el backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      DATABASE_URL: postgresql://user:password@localhost:5432/mydatabase
+    depends_on:
+      - db
+
+  # Servicio para la base de datos PostgreSQL
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - library_db-data:/var/lib/postgresql/data
+
+volumes:
+  library_db-data:
+    external: true

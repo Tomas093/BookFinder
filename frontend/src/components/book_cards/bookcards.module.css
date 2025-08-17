@@ -1,0 +1,96 @@
+.bookCard {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    padding: 24px;
+    margin: 16px 0;
+    max-width: 350px;
+    transition: box-shadow 0.2s;
+}
+
+.bookCard:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.favoriteIconContainer {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
+.favoriteIcon {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.favoriteIcon:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+.bookTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2d3748;
+    padding-right: 40px; /* Espacio para el ícono */
+}
+
+.bookAuthor {
+    font-size: 1rem;
+    color: #4a5568;
+    margin-bottom: 4px;
+}
+
+.bookGenre {
+    font-size: 0.95rem;
+    color: #718096;
+    margin-bottom: 12px;
+}
+
+.bookSynopsis {
+    font-size: 1rem;
+    color: #2d3748;
+    margin-bottom: 16px;
+}
+
+.favoriteButton {
+    background: #e2e8f0;
+    color: #2b6cb0;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+
+.favoriteButton.favorited {
+    background: #2b6cb0;
+    color: #fff;
+}
+
+.favoriteButton:hover {
+    background: #bee3f8;
+}
+
+.viewDetailsButton {
+    background: #edf2f7;
+    color: #2d3748;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+
+.viewDetailsButton:hover {
+    background: #cbd5e0;
+    color: #2d3748;
+    transition: background 0.2s, color 0.2s;
+}
