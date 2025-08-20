@@ -1,41 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {useState, useEffect} from 'react';
 import BookCards from "@/components/book_cards/BookCards";
-import {BookGenre} from "@/types/bookGenre.ts";
+import type {Book} from "@/types/book.ts";
+import SinopsisCard from "@components/sinopsis_card/SinopsisCard.tsx";
+import styles from '@components/book_cards/bookcards.module.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [isSinopsisVisible, setIsSinopsisVisible] = useState(false);
+    const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+    const [books, setBooks] = useState<Book[]>([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <BookCards title={"The Great Gatsby"}
-                 author={"F. Scott Fitzgerald"}
-                 genre={BookGenre.FANTASIA}
-                 synopsis={"A story about the Jazz Age in the United States, " +
-                     "focusing on the mysterious Jay Gatsby and his obsession with Daisy Buchanan."}
-                 isFavorite={true}>
-      </BookCards>
-    </>
-  )
+    useEffect(() => {
+        const fetchBooks = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/book/');
+                const data: Book[] = await response.json();
+                setBooks(data);
+            } catch (error) {
+                console.error('Error fetching books:', error);
+            }
+        };
+
+        fetchBooks();
+    }, []);
+
+    const handleViewDetails = (book: Book) => {
+        setSelectedBook(book);
+        setIsSinopsisVisible(true);
+    };
+
+    const handleCloseSinopsis = () => {
+        setIsSinopsisVisible(false);
+        setSelectedBook(null);
+    };
+
+    return (
+        <>
+            <div className={styles.booksContainer}>
+                {books.map((book: Book) => (
+                    <BookCards
+                        key={book.title}
+                        title={book.title}
+                        author={book.author.name}
+                        genre={book.genre}
+                        synopsis={book.synopsis}
+                        isFavorite={book.isFavorite}
+                        onToggleFavorite={() => console.log("Toggle favorite")}
+                        onViewDetails={() => handleViewDetails(book)}
+                    />
+                ))}
+            </div>
+
+            {isSinopsisVisible && selectedBook && (
+                <SinopsisCard
+                    title={selectedBook.title}
+                    author={selectedBook.author.name}
+                    synopsis={selectedBook.synopsis}
+                    onClose={handleCloseSinopsis}
+                />
+            )}
+        </>
+    );
 }
 
-export default App
+export default App;

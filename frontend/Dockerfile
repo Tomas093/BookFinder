@@ -11,15 +11,3 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-
-# Etapa 2: Servir la aplicación
-FROM nginx:alpine
-
-# Copia los archivos estáticos de la aplicación construida
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Expone el puerto 80 del servidor Nginx
-EXPOSE 80
-
-# Comando para iniciar Nginx
-CMD ["nginx", "-g", "daemon off;"]

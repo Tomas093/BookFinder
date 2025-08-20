@@ -10,29 +10,50 @@ interface CardProps {
     synopsis: string;
     isFavorite: boolean;
     onToggleFavorite?: () => void;
+    onViewDetails?: () => void;
 }
 
-export default function BookCard({title, author, genre, synopsis, isFavorite, onToggleFavorite}: CardProps) {
+export default function BookCard({
+                                     title,
+                                     author,
+                                     genre,
+                                     isFavorite,
+                                     onToggleFavorite,
+                                     onViewDetails
+                                 }: CardProps) {
+
+    const handleViewDetails = () => {
+        if (onViewDetails) {
+            onViewDetails();
+        }
+    };
+
     return (
         <div className={styles.bookCard}>
+            <div className={styles.bookImagePlaceholder}></div>
             <div className={styles.favoriteIconContainer}>
                 <IconButton
-                    aria-label="Toggle Favorite"
                     onClick={onToggleFavorite}
                     className={styles.favoriteIcon}
                     color={isFavorite ? "error" : "default"}
                     size="small"
+                    aria-label={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
                 >
                     {isFavorite ? <Favorite/> : <FavoriteBorder/>}
                 </IconButton>
             </div>
-            <h2 className={styles.bookTitle}>{title}</h2>
-            <p className={styles.bookAuthor}>by {author}</p>
-            <p className={styles.bookGenre}>Genre: {genre}</p>
-            <p className={styles.bookSynopsis}>{synopsis}</p>
-            <button className={styles.viewDetailsButton}>
-                Ver Detalles
-            </button>
+
+            <div className={styles.bookContent}>
+                <h2 className={styles.bookTitle}>{title}</h2>
+                <p className={styles.bookAuthor}>por {author}</p>
+                <span className={styles.bookGenre}>{genre}</span>
+                <button
+                    className={styles.viewDetailsButton}
+                    onClick={handleViewDetails}
+                    aria-label="Ver Sinopsis del libro">
+                    Ver Sinopsis
+                </button>
+            </div>
         </div>
     );
 }
