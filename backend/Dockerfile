@@ -7,7 +7,8 @@ WORKDIR /usr/src/app
 # Copia los archivos package.json y package-lock.json
 COPY package*.json ./
 
-# Instala las dependencias del proyecto
+# Asegura que se instalen las devDependencies
+ENV NODE_ENV=development
 RUN npm install
 
 # Copia el resto del código fuente al contenedor

@@ -1,3 +1,13 @@
+# Dependencies
+/node_modules
+/frontend/node_modules
+/backend/node_modules
+
+# Build output
+/dist
+/frontend/dist
+/backend/dist
+
 # Logs
 logs
 *.log
@@ -7,9 +17,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Local env files
+.env*.local
 *.local
 
 # Editor directories and files

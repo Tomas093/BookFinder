@@ -1,4 +1,4 @@
-import type {Author} from "./author.js";
+import type {Author} from "../../author/domain/author.js";
 import type {BookGenere} from "./book-genere.js";
 
 export interface Book {

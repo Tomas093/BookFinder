@@ -35,12 +35,13 @@ function App() {
 
     return (
         <>
+
             <div className={styles.booksContainer}>
                 {books.map((book: Book) => (
                     <BookCards
                         key={book.title}
                         title={book.title}
-                        author={book.author.name}
+                        author={book.authors.name}
                         genre={book.genre}
                         synopsis={book.synopsis}
                         isFavorite={book.isFavorite}
@@ -53,7 +54,7 @@ function App() {
             {isSinopsisVisible && selectedBook && (
                 <SinopsisCard
                     title={selectedBook.title}
-                    author={selectedBook.author.name}
+                    author={selectedBook.authors.name}
                     synopsis={selectedBook.synopsis}
                     onClose={handleCloseSinopsis}
                 />
