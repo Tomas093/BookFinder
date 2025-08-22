@@ -3,6 +3,8 @@ import BookCards from "@/components/book_cards/BookCards";
 import type {Book} from "@/types/book.ts";
 import SinopsisCard from "@components/sinopsis_card/SinopsisCard.tsx";
 import styles from '@components/book_cards/bookcards.module.css';
+import { getAllBooks, addFavoriteBook, removeFavoriteBook } from "@/api/book-api";
+
 
 function App() {
     const [isSinopsisVisible, setIsSinopsisVisible] = useState(false);
@@ -12,8 +14,7 @@ function App() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await fetch('http://localhost:3000/book/');
-                const data: Book[] = await response.json();
+                const data = await getAllBooks();
                 setBooks(data);
             } catch (error) {
                 console.error('Error fetching books:', error);
@@ -22,6 +23,22 @@ function App() {
 
         fetchBooks();
     }, []);
+
+    const handleToggleFavorite = async (book: Book) => {
+        try {
+            if (book.isFavorite) {
+                await removeFavoriteBook(book.id);
+            } else {
+                await addFavoriteBook(book.id);
+            }
+
+            const updatedBooks = await getAllBooks();
+            setBooks(updatedBooks);
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }
+    };
+
 
     const handleViewDetails = (book: Book) => {
         setSelectedBook(book);
@@ -33,19 +50,20 @@ function App() {
         setSelectedBook(null);
     };
 
+
+
     return (
         <>
-
             <div className={styles.booksContainer}>
                 {books.map((book: Book) => (
                     <BookCards
                         key={book.title}
                         title={book.title}
-                        author={book.authors.name}
+                        author={book.author.name}
                         genre={book.genre}
                         synopsis={book.synopsis}
                         isFavorite={book.isFavorite}
-                        onToggleFavorite={() => console.log("Toggle favorite")}
+                        onToggleFavorite={() => handleToggleFavorite(book)}
                         onViewDetails={() => handleViewDetails(book)}
                     />
                 ))}
@@ -54,7 +72,7 @@ function App() {
             {isSinopsisVisible && selectedBook && (
                 <SinopsisCard
                     title={selectedBook.title}
-                    author={selectedBook.authors.name}
+                    author={selectedBook.author.name}
                     synopsis={selectedBook.synopsis}
                     onClose={handleCloseSinopsis}
                 />

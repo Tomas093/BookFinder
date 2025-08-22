@@ -1,18 +1,21 @@
+# Define como se crea la imagen
+
 # Usa una imagen de Node.js como base
-FROM node:20-alpine
+
+FROM node:22.18.0
 
 # Establece el directorio de trabajo dentro del contenedor
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copia los archivos package.json y package-lock.json
 COPY package*.json ./
 
-# Asegura que se instalen las devDependencies
-ENV NODE_ENV=development
 RUN npm install
 
 # Copia el resto del código fuente al contenedor
 COPY . .
+
+RUN npx prisma generate
 
 # Expone el puerto en el que va a correr la aplicación
 EXPOSE 3000

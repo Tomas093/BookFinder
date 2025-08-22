@@ -1,5 +1,5 @@
 import type {Author} from "../../author/domain/author.js";
-import type {BookGenere} from "./book-genere.js";
+import type {genre_enum} from "@prisma/client";
 
 export interface Book {
     id: number;
@@ -7,7 +7,7 @@ export interface Book {
     publishedAt: Date;
     author: Author;
     synopsis: string;
-    genre: BookGenere;
+    genre: genre_enum;
     isFavorite: boolean;
 }
 

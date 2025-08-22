@@ -1,17 +1,21 @@
 import type {Book} from "@/types/book";
-import type {Author} from "@/types/author";
+
 
 const BASE_URL = 'http://localhost:3000/book';
 
 function toBook(raw: any): Book {
     return {
+        id: raw.id,
         title: raw.title,
-        authors: {
-            name: raw.authors?.name ?? '',
-            birthDate: raw.authors?.birth_date ? new Date(raw.authors.birth_date) : new Date(),
-        },
+        author: raw.authors
+            ? {
+                name: raw.authors.name ?? '',
+                birthDate: raw.authors.birth_date ? new Date(raw.authors.birth_date) : new Date(),
+            }
+            : { name: '', birthDate: new Date() },
         genre: raw.genre,
         synopsis: raw.synopsis,
+        publishedAt: raw.published_at ? new Date(raw.published_at) : new Date(),
         isFavorite: raw.isFavorite,
     };
 }
@@ -35,13 +39,13 @@ export async function getBookById(id: number): Promise<Book | null> {
     return toBook(data);
 }
 
-export async function addFavoriteBook(id: number): Promise<{message: string}> {
-    const res = await fetch(`${BASE_URL}/${id}/favorite`, { method: 'PUT' });
+export async function addFavoriteBook(id: number): Promise<{ message: string }> {
+    const res = await fetch(`${BASE_URL}/${id}/favorite`, {method: 'PUT'});
     return res.json();
 }
 
-export async function removeFavoriteBook(id: number): Promise<{message: string}> {
-    const res = await fetch(`${BASE_URL}/${id}/favorite`, { method: 'DELETE' });
+export async function removeFavoriteBook(id: number): Promise<{ message: string }> {
+    const res = await fetch(`${BASE_URL}/${id}/favorite`, {method: 'DELETE'});
     return res.json();
 }
 
