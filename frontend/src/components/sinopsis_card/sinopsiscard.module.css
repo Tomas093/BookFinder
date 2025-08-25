@@ -184,7 +184,7 @@
     z-index: 2;
 }
 
-.synopsis {
+.synopsis{
     font-size: 1.2rem;
     line-height: 1.8;
     color: #334155;
@@ -213,16 +213,16 @@
     border-radius: 24px 24px 0 0;
 }
 
-.synopsis p {
+.sinopsisp {
     margin: 0 0 1.5em 0;
     position: relative;
 }
 
-.synopsis p:last-child {
+.sinopsisp:last-child {
     margin-bottom: 0;
 }
 
-.synopsis p:first-child::first-letter {
+.sinopsisp:first-child::first-letter {
     font-size: 2.5rem;
     font-weight: 900;
     line-height: 0.8;
@@ -279,14 +279,14 @@
         padding: 28px 28px 36px 28px;
     }
 
-    .synopsis {
+    .synopsis{
         font-size: 1.1rem;
         line-height: 1.7;
         padding: 24px;
         text-align: left;
     }
 
-    .synopsis p:first-child::first-letter {
+    .sinopsisp:first-child::first-letter {
         font-size: 2.5rem;
         line-height: 0.8;
         margin: 0 8px 4px 0;
@@ -326,12 +326,12 @@
         padding: 24px;
     }
 
-    .synopsis {
+    .synopsis{
         font-size: 1rem;
         padding: 20px;
     }
 
-    .synopsis p:first-child::first-letter {
+    .sinopsisp:first-child::first-letter {
         font-size: 2rem;
     }
 }

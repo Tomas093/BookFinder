@@ -3,6 +3,7 @@ import {BookGenre} from "@/types/bookGenre";
 import {IconButton} from "@mui/material";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import {useMemo} from "react";
+import {getGenreDisplay} from "@/types/genreMap";
 
 interface CardProps {
     title: string;
@@ -15,7 +16,6 @@ interface CardProps {
 }
 
 const colorGradients = [
-    // Originales
     'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
     'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
@@ -26,7 +26,6 @@ const colorGradients = [
     'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
     'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
-    // Nuevos
     'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
     'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
     'linear-gradient(135deg, #5f72be 0%, #9921e8 100%)',
@@ -86,12 +85,12 @@ export default function BookCard({
             <div className={styles.bookContent}>
                 <h2 className={styles.bookTitle}>{title}</h2>
                 <p className={styles.bookAuthor}>por {author}</p>
-                <span className={styles.bookGenre}>{genre}</span>
+                <span className={styles.bookGenre}>{getGenreDisplay(genre)}</span>
                 <button
                     className={styles.viewDetailsButton}
                     onClick={handleViewDetails}
-                    aria-label="Ver Sinopsis del libro">
-                    Ver Sinopsis
+                    aria-label="Ver synopsis del libro">
+                    Ver synopsis
                 </button>
             </div>
         </div>

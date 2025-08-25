@@ -2,7 +2,7 @@ import {PrismaBookRepository} from "../repository/book-repository.js"
 import type {authors, books} from "@prisma/client";
 
 type MatchType = "contains" | "startsWith" | "endsWith";
-type SearchField = "title" | "author" | "genre" | "sinopsis";
+type SearchField = "title" | "author" | "genre" | "synopsis";
 
 export class BookService {
 
@@ -33,22 +33,21 @@ export class BookService {
     }
 
     async searchBooks(searchString: string, matchType: MatchType, searchField: SearchField): Promise<(books & { authors: authors })[]>  {
-      const query: any = {};
+        try {
+            console.log('BookService.searchBooks called with:', { searchString, matchType, searchField });
 
-      if (searchField === "author") {
-        query.author = { name: { [matchType]: searchString } };
-      } else if (searchField === "genre") {
-        query.genre = { equals: searchString };
-      } else if (searchField === "sinopsis") {
-        query.sinopsis = { [matchType]: searchString };
-      } else {
-        query.title = { [matchType]: searchString };
-      }
-
-      return this.bookRepository.searchBooks(query);
+            if (searchField === "author") {
+                return await this.bookRepository.searchBooksByAuthor(searchString, matchType);
+            } else if (searchField === "genre") {
+                return await this.bookRepository.searchBooksByGenre(searchString);
+            } else if (searchField === "synopsis") {
+                return await this.bookRepository.searchBooksBySinopsis(searchString, matchType);
+            } else {
+                return await this.bookRepository.searchBooksByTitle(searchString, matchType);
+            }
+        } catch (error) {
+            console.error('Error in BookService.searchBooks:', error);
+            throw error;
+        }
     }
-
-
-
-
 }

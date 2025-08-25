@@ -15,4 +15,5 @@ export const BookGenre = {
     FINANZAS_PERSONALES: 'Finanzas personales',
 } as const;
 
+
 export type BookGenre = typeof BookGenre[keyof typeof BookGenre];

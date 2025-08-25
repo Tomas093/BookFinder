@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import bookRoutes from "./book/controller/book-routes.js";
+import bookRoutes from './book/controller/book-routes.js';
 
 const app = express();
 const port = 3000;
