@@ -1,4 +1,3 @@
-import {PrismaBookRepository} from "../repository/book-repository.js"
 import type {authors, books} from "@prisma/client";
 import {IBookRepository} from "../repository/interface-book-repository.js";
 

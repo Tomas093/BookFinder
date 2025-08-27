@@ -1,9 +1,13 @@
 import {type Request, type Response, Router} from 'express';
 import {BookService} from '../service/book-service.js';
 import {PrismaBookRepository} from "../repository/book-repository.js";
+import { PrismaClient } from '@prisma/client';
 
 const router = Router();
-const bookService = new BookService(new PrismaBookRepository());
+
+const Prisma = new PrismaClient();
+
+const bookService = new BookService(new PrismaBookRepository(Prisma));
 
 router.get('/', async (req: Request, res: Response): Promise<void> => {
     try {
