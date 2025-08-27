@@ -1,15 +1,16 @@
 import {PrismaBookRepository} from "../repository/book-repository.js"
 import type {authors, books} from "@prisma/client";
+import {IBookRepository} from "../repository/interface-book-repository.js";
 
 type MatchType = "contains" | "startsWith" | "endsWith";
 type SearchField = "title" | "author" | "genre" | "synopsis";
 
 export class BookService {
 
-    private bookRepository: PrismaBookRepository;
+    private bookRepository: IBookRepository;
 
-    constructor() {
-        this.bookRepository = new PrismaBookRepository();
+    constructor(bookRepository: IBookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     async getAllBooks(): Promise<(books & { authors: authors })[]> {

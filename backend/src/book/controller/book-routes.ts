@@ -1,8 +1,9 @@
 import {type Request, type Response, Router} from 'express';
 import {BookService} from '../service/book-service.js';
+import {PrismaBookRepository} from "../repository/book-repository.js";
 
 const router = Router();
-const bookService = new BookService();
+const bookService = new BookService(new PrismaBookRepository());
 
 router.get('/', async (req: Request, res: Response): Promise<void> => {
     try {
